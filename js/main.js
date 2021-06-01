@@ -9,3 +9,4 @@ const getRandomFloat = (min, max, float) => {
 };
 
 const getRandomInteger = (min, max) => getRandomFloat(min, max, 0);
+getRandomInteger(1, 4);
