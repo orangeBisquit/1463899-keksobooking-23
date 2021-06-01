@@ -22,11 +22,3 @@ const getRandomFloat = (min, max, float) => {
 
 const getRandomInteger = (min, max) => getRandomFloat(min, max, 0);
 getRandomInteger(1, 4);
-
-
-console.log(getRandomInteger(-28, 'aaa', 1));
-console.log(getRandomInteger(-28, 3, 1));
-console.log(getRandomInteger(-2, 3, -5));
-console.log(getRandomInteger(-2, 3, 1));
-console.log(getRandomInteger(-2, 56, 1));
-console.log(getRandomInteger(-2, 3, 1));
