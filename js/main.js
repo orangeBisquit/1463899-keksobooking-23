@@ -6,41 +6,6 @@ const TEMP_MAX_GUESTS = 30;
 
 const ADS_NUMBER = 10;
 
-const getRandomFloat = (min, max, float) => {
-  if (
-    Number.isNaN(min, max, float) ||
-    typeof min !== 'number' ||
-    typeof max !== 'number' ||
-    typeof float !== 'number'
-  ) {
-    throw new Error('min, max или float не являются числами');
-  }
-  const from = Math.min(min, max);
-  const to = Math.max(min, max);
-  const exponentBase = Math.pow(10, float);
-
-  return (
-    Math.round((Math.random() * (to - from) + from) * exponentBase) /
-    exponentBase
-  );
-};
-
-const getRandomInteger = (min, max) => getRandomFloat(min, max, 0);
-getRandomInteger(1, 4);
-
-// Выбрать рандомные элементы массива
-const getRandomArrayValues = (array) => {
-  const shuffledArray = array.sort(() => 0.5 - Math.random());
-  const valuesPickedNumber = getRandomInteger(0, array.length) + 1;
-  const valuesPickedArray = [];
-  for (let i = 0; i < valuesPickedNumber; i++) {
-    valuesPickedArray[i] = shuffledArray[i];
-  }
-  return valuesPickedArray;
-};
-
-// Создать объект
-
 const TempPrice = {
   priceMin: 0,
   priceMax: 1000,
@@ -77,6 +42,38 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
+const isPositiveNumber = (value) => typeof value === 'number' && value >= 0;
+
+const getRandomFloat = (...args) => {
+  if (args.some((value) => !isPositiveNumber(value))) {
+    throw new Error('min, max или float не являются положительными числами');
+  }
+  const [min, max, float] = args;
+  const from = Math.min(min, max);
+  const to = Math.max(min, max);
+  const exponentBase = Math.pow(10, float);
+
+  return (
+    Math.round((Math.random() * (to - from) + from) * exponentBase) /
+    exponentBase
+  );
+};
+
+const getRandomInteger = (min, max) => getRandomFloat(min, max, 0);
+getRandomInteger(1, 4);
+
+// Выбрать рандомные элементы массива
+const getRandomArrayValues = (array) => {
+  const shuffledArray = array.sort(() => 0.5 - Math.random());
+  const valuesPickedNumber = getRandomInteger(0, array.length) + 1;
+  const valuesPickedArray = [];
+  for (let i = 0; i < valuesPickedNumber; i++) {
+    valuesPickedArray[i] = shuffledArray[i];
+  }
+  return valuesPickedArray;
+};
+
+// Создать объект
 const getAd = () => {
 
   const locationLat = getRandomFloat(
