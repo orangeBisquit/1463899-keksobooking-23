@@ -1,12 +1,12 @@
 const AVATAR_DIR = 'img/avatars/user';
 
-const TEMP_MAX_ROOMS = 10;
+const MAX_ROOMS = 10;
 
-const TEMP_MAX_GUESTS = 30;
+const MAX_GUESTS = 30;
 
 const ADS_NUMBER = 10;
 
-const TempPrice = {
+const Price = {
   priceMin: 0,
   priceMax: 1000,
 };
@@ -36,10 +36,12 @@ const FEATURES = [
   'conditioner',
 ];
 
+const PHOTO_ROOT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking';
+
 const PHOTOS = [
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
+  `${PHOTO_ROOT}/duonguyen-8LrGtIxxa4w.jpg`,
+  `${PHOTO_ROOT}/brandon-hoogenboom-SNxQGWxZQi0.jpg`,
+  `${PHOTO_ROOT}/claire-rendall-b6kAwr1i0Iw.jpg`,
 ];
 
 const isPositiveNumber = (value) => typeof value === 'number' && value >= 0;
@@ -63,14 +65,23 @@ const getRandomInteger = (min, max) => getRandomFloat(min, max, 0);
 getRandomInteger(1, 4);
 
 // Выбрать рандомные элементы массива
-const getRandomArrayValues = (array) => {
-  const shuffledArray = array.sort(() => 0.5 - Math.random());
-  const valuesPickedNumber = getRandomInteger(0, array.length) + 1;
-  const valuesPickedArray = [];
-  for (let i = 0; i < valuesPickedNumber; i++) {
-    valuesPickedArray[i] = shuffledArray[i];
+const getRandomBoolean = () => Math.random() <= 0.5;
+
+const getRandomItems = (array, canBeEmpty = true) => {
+  const result = array.filter(getRandomBoolean);
+
+  if (!canBeEmpty && result.length < 1) {
+    result.push(array[Math.floor(Math.random * array.length)]);
   }
-  return valuesPickedArray;
+  return result;
+};
+
+const getRandomItem = (array) => {
+  const length = getRandomItems(array).length;
+  const randomIdx = Math.floor(Math.random() * length);
+  const randomItem = array[randomIdx];
+
+  return randomItem;
 };
 
 // Создать объект
@@ -100,15 +111,15 @@ const getAd = () => {
     offer: {
       title: 'Объявление',
       address: `${locationLat}, ${locationLng}`,
-      price: getRandomInteger(TempPrice.priceMin, TempPrice.priceMax),
-      type: TYPES[getRandomInteger(0, TYPES.length - 1)],
-      rooms: getRandomInteger(1, TEMP_MAX_ROOMS),
-      guests: getRandomInteger(1, TEMP_MAX_GUESTS),
+      price: getRandomInteger(Price.priceMin, Price.priceMax),
+      type: getRandomItem(TYPES),
+      rooms: getRandomInteger(1, MAX_ROOMS),
+      guests: getRandomInteger(1, MAX_GUESTS),
       checkin: checkInAndOut,
       checkout: checkInAndOut,
-      features: getRandomArrayValues(FEATURES),
+      features: getRandomItems(FEATURES),
       description: 'Описание',
-      photos: getRandomArrayValues(PHOTOS),
+      photos: getRandomItems(PHOTOS, false),
     },
     location: {
       lat: locationLat,
