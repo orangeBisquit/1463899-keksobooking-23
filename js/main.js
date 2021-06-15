@@ -62,7 +62,6 @@ const getRandomFloat = (...args) => {
 };
 
 const getRandomInteger = (min, max) => getRandomFloat(min, max, 0);
-getRandomInteger(1, 4);
 
 // Выбрать рандомные элементы массива
 const getRandomBoolean = () => Math.random() <= 0.5;
@@ -73,6 +72,7 @@ const getRandomItems = (array, canBeEmpty = true) => {
   if (!canBeEmpty && result.length < 1) {
     result.push(array[Math.floor(Math.random * array.length)]);
   }
+
   return result;
 };
 
@@ -83,6 +83,8 @@ const getRandomItem = (array) => {
 
   return randomItem;
 };
+
+const addPadLeft = () => String(getRandomInteger(0, 10)).padStart(2,'0');
 
 // Создать объект
 const getAd = () => {
@@ -103,10 +105,7 @@ const getAd = () => {
 
   return {
     author: {
-      avatar: `${AVATAR_DIR}${String(getRandomInteger(0, 10)).padStart(
-        2,
-        '0',
-      )}'.png'`,
+      avatar: `${AVATAR_DIR}${addPadLeft()}'.png'`,
     },
     offer: {
       title: 'Объявление',
@@ -140,3 +139,4 @@ const getAds = () => {
 const myAds = getAds();
 
 myAds;
+
