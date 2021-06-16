@@ -61,5 +61,5 @@ export {
   getRandomItems,
   getRandomItem,
   addPadLeft,
-  conjucationHelper,
+  conjucationHelper
 };
