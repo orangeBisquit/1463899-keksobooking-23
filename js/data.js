@@ -2,7 +2,8 @@ import {
   getRandomFloat,
   getRandomInteger,
   getRandomItems,
-  getRandomItem
+  getRandomItem,
+  addPadLeft
 } from './util.js';
 
 const AVATAR_DIR = 'img/avatars/user';
@@ -52,8 +53,6 @@ const PHOTOS = [
   `${PHOTO_ROOT}/claire-rendall-b6kAwr1i0Iw.jpg`,
 ];
 
-const addPadLeft = () => String(getRandomInteger(0, 10)).padStart(2, '0');
-
 const getAd = () => {
 
   const locationLat = getRandomFloat(
@@ -72,7 +71,7 @@ const getAd = () => {
 
   return {
     author: {
-      avatar: `${AVATAR_DIR}${addPadLeft()}'.png'`,
+      avatar: `${AVATAR_DIR}${addPadLeft()}.png`,
     },
     offer: {
       title: 'Объявление',
@@ -93,7 +92,7 @@ const getAd = () => {
     },
   };};
 
-const getAds = () => {
+export const getAds = () => {
   const randomAds = [];
 
   for (let i = 0; i < ADS_NUMBER; i++) {
@@ -102,7 +101,3 @@ const getAds = () => {
 
   return randomAds;
 };
-
-const myAds = getAds();
-
-myAds;
