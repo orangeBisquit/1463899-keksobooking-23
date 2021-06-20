@@ -1,5 +1,10 @@
-import { getAds } from './data.js';
-import { conjucationHelper } from './util.js';
+import { conjucationHelper, checkExistence } from "./util.js";
+
+const CARD_TEMPLATE = document
+  .querySelector('#card')
+  .content.querySelector('.popup');
+
+const MAP_CANVAS = document.querySelector('#map-canvas');
 
 const TYPE_KEYS = {
   flat: 'Квартира',
@@ -52,9 +57,13 @@ const getPhotos = (cardItem, photosDirs) => {
   });
 };
 
-const cardTemplate = document
-  .querySelector('#card')
-  .content.querySelector('.popup');
+const setOrRemove = (element, value, text = value) => {
+  if (!value) {
+    element.remove();
+  } else {
+    element.textContent = text;
+  }
+};
 
 const createCard = (arrayItem) => {
   const { author, offer } = arrayItem;
@@ -74,7 +83,7 @@ const createCard = (arrayItem) => {
     checkout,
   } = offer;
 
-  const card = cardTemplate.cloneNode(true);
+  const card = CARD_TEMPLATE.cloneNode(true);
 
   const adTitle = card.querySelector('.popup__title');
   const adAddress = card.querySelector('.popup__text--address');
@@ -87,35 +96,36 @@ const createCard = (arrayItem) => {
 
   const capacityNames = getCapacityNames(rooms, guests);
 
-  adTitle.textContent = title;
 
-  adAddress.textContent = address;
-
-  adPrice.textContent = `${price} ₽/ночь`;
-
-  adType.textContent = TYPE_KEYS[type];
-
-  adCapacity.textContent = `${rooms} ${capacityNames.rooms} для ${guests} ${capacityNames.guests}`;
-
-  getFeatures(card, features);
-
-  adDescription.textContent = description;
-
-  getPhotos(card, photos);
+  setOrRemove(adTitle, title);
+  setOrRemove(adAddress, address);
+  setOrRemove(adPrice, price, `${price} ₽/ночь`);
+  setOrRemove(adType, type, TYPE_KEYS[type]);
+  setOrRemove(
+    adCapacity,
+    rooms * guests,
+    `${rooms} ${capacityNames.rooms} для ${guests} ${capacityNames.guests}`,
+  );
+  setOrRemove(adDescription, description);
+  setOrRemove(
+    adCheckInAndOut,
+    checkExistence(checkin, checkout),
+    `Заезд после ${checkin}, выезд до ${checkout}`,
+  );
 
   adAvatar.src = avatar;
+  if (!avatar) {
+    adAvatar.remove();
+  }
 
-  adCheckInAndOut.textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
+  getFeatures(card, features);
+  getPhotos(card, photos);
 
   return card;
 };
 
-const mapCanvas = document.querySelector('#map-canvas');
-
 const renderCard = (card) => {
-  mapCanvas.appendChild(card);
+  MAP_CANVAS.appendChild(card);
 };
 
-const myAds = getAds();
-
-renderCard(createCard(myAds[0]));
+export { createCard, renderCard };

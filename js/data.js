@@ -71,7 +71,7 @@ const getAd = () => {
 
   return {
     author: {
-      avatar: `${AVATAR_DIR}${addPadLeft()}.png`,
+      avatar: `${AVATAR_DIR}${addPadLeft(0, 10)}.png`,
     },
     offer: {
       title: 'Объявление',

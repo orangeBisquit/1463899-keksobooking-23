@@ -38,7 +38,7 @@ const getRandomItem = (array) => {
   return randomItem;
 };
 
-const addPadLeft = () => String(getRandomInteger(0, 10)).padStart(2, '0');
+const addPadLeft = (min, max) => String(getRandomInteger(min, max)).padStart(2, '0');
 
 const conjucationHelper = (amount) => {
   if (amount % 10 === 1 && amount % 100 !== 11) {
@@ -55,11 +55,18 @@ const conjucationHelper = (amount) => {
   }
 };
 
+const checkExistence = (...args) => {
+  const result = args.includes(undefined);
+
+  return !result;
+};
+
 export {
   getRandomFloat,
   getRandomInteger,
   getRandomItems,
   getRandomItem,
   addPadLeft,
-  conjucationHelper
+  conjucationHelper,
+  checkExistence,
 };
