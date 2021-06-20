@@ -1,4 +1,4 @@
-import { conjucationHelper, checkExistence } from "./util.js";
+import { conjucationHelper, checkExistence } from './util.js';
 
 const CARD_TEMPLATE = document
   .querySelector('#card')

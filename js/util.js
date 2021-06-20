@@ -68,5 +68,5 @@ export {
   getRandomItem,
   addPadLeft,
   conjucationHelper,
-  checkExistence,
+  checkExistence
 };
