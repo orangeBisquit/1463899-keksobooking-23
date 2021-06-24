@@ -1,4 +1,4 @@
-import { conjucationHelper, checkExistence } from './util.js';
+import { getNounEnding, checkExistence } from './util.js';
 
 const CARD_TEMPLATE = document
   .querySelector('#card')
@@ -14,8 +14,8 @@ const TYPE_KEYS = {
   hotel: 'Отель',
 };
 
-const GUESTS_TYPES = ['Гостя', 'Гостей', 'Гостей'];
-const ROOMS_TYPES = ['Комната', 'Комнаты', 'Комнат'];
+const GUESTS_TYPES = ['гостя', 'гостей', 'гостей'];
+const ROOMS_TYPES = ['комната', 'комнаты', 'комнат'];
 
 const getCapacityNames = (roomsNumber, guestsNumber) => {
   const capacity = {
@@ -23,13 +23,13 @@ const getCapacityNames = (roomsNumber, guestsNumber) => {
     rooms: '',
   };
 
-  capacity.guests = GUESTS_TYPES[conjucationHelper(guestsNumber)];
-  capacity.rooms = ROOMS_TYPES[conjucationHelper(roomsNumber)];
+  capacity.guests = GUESTS_TYPES[getNounEnding(guestsNumber)];
+  capacity.rooms = ROOMS_TYPES[getNounEnding(roomsNumber)];
 
   return capacity;
 };
 
-const getFeatures = (cardItem, featuresList) => {
+const setFeatures = (cardItem, featuresList) => {
   const templateFeatures = cardItem.querySelectorAll('.popup__feature');
 
   const modifiers = featuresList.map((feature) => `popup__feature--${feature}`);
@@ -43,7 +43,7 @@ const getFeatures = (cardItem, featuresList) => {
   });
 };
 
-const getPhotos = (cardItem, photosDirs) => {
+const setPhotos = (cardItem, photosDirs) => {
   const photosBlock = cardItem.querySelector('.popup__photos');
 
   const templatePhoto = photosBlock.querySelector('.popup__photo');
@@ -68,7 +68,7 @@ const setOrRemove = (element, value, text = value) => {
 const createCard = (arrayItem) => {
   const { author, offer } = arrayItem;
 
-  const { avatar } = author;
+  const { avatar } = author || {};
   const {
     title,
     address,
@@ -81,7 +81,7 @@ const createCard = (arrayItem) => {
     photos,
     checkin,
     checkout,
-  } = offer;
+  } = offer || {};
 
   const card = CARD_TEMPLATE.cloneNode(true);
 
@@ -113,13 +113,14 @@ const createCard = (arrayItem) => {
     `Заезд после ${checkin}, выезд до ${checkout}`,
   );
 
-  adAvatar.src = avatar;
   if (!avatar) {
     adAvatar.remove();
+  } else {
+    adAvatar.src = avatar;
   }
 
-  getFeatures(card, features);
-  getPhotos(card, photos);
+  setFeatures(card, features);
+  setPhotos(card, photos);
 
   return card;
 };
