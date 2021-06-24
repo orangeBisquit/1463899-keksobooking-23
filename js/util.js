@@ -38,4 +38,31 @@ const getRandomItem = (array) => {
   return randomItem;
 };
 
-export {getRandomFloat, getRandomInteger, getRandomItems, getRandomItem};
+const addPadLeft = (min, max) => String(getRandomInteger(min, max)).padStart(2, '0');
+
+const getNounEnding= (amount) => {
+  if (amount % 10 === 1 && amount % 100 !== 11) {
+    return 0;
+  }
+  if (
+    amount % 10 >= 2 &&
+    amount % 10 <= 4 &&
+    (amount % 100 < 10 || amount % 100 >= 20)
+  ) {
+    return 1;
+  } else {
+    return 2;
+  }
+};
+
+const checkExistence = (...args) =>  !args.includes(undefined);
+
+export {
+  getRandomFloat,
+  getRandomInteger,
+  getRandomItems,
+  getRandomItem,
+  addPadLeft,
+  getNounEnding,
+  checkExistence
+};
