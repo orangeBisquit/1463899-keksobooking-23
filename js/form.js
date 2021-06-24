@@ -43,9 +43,13 @@ const priceInputHandler = () => {
   AD_PRICE.reportValidity();
 };
 
-const disableCapacity = () => {
+const disableCapacity = (onload) => {
   AD_CAPACITY_OPTIONS.forEach((option) => {
-    if (option.selected !== true) {
+    if (onload === true) {
+      if (option.selected !== true) {
+        option.disabled = true;
+      }
+    } else {
       option.disabled = true;
     }
   });
@@ -69,7 +73,7 @@ const roomChangeHandler = (evt) => {
 };
 
 const enableFormValidation = () => {
-  disableCapacity();
+  disableCapacity(true);
 
   AD_HEADING.addEventListener('input', headingInputHandler);
   AD_PRICE.addEventListener('input', priceInputHandler);
