@@ -119,6 +119,7 @@ const createCard = (arrayItem) => {
     adAvatar.src = avatar;
   }
 
+
   setFeatures(card, features);
   setPhotos(card, photos);
 
