@@ -1,3 +1,5 @@
+import { enableFormValidation, disableFormValidation } from './form.js';
+
 const AD_FORM = document.querySelector('.ad-form');
 const MAP_FILTERS = document.querySelector('.map__filters');
 
@@ -24,11 +26,15 @@ const enableForm = (form, selectors, disableClass) => {
 const disablePage = () => {
   disableForm(AD_FORM, '.ad-form__element', 'ad-form--disabled');
   disableForm(MAP_FILTERS, 'select, fieldset', 'map__filters--disabled');
+
+  disableFormValidation();
 };
 
 const enablePage = () => {
   enableForm(AD_FORM, '.ad-form__element', 'ad-form--disabled');
   enableForm(MAP_FILTERS, 'select, fieldset', 'map__filters--disabled');
+
+  enableFormValidation();
 };
 
 export { disablePage, enablePage };
