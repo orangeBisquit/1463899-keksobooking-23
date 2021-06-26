@@ -1,5 +1,5 @@
 import { enablePage } from './page-state.js';
-import { getAds } from './data.js';
+
 import { createCard } from './render-card.js';
 
 const AD_ADDRESS = document.querySelector('#address');
@@ -91,8 +91,4 @@ const renderMarkers = (markersData) => {
   });
 };
 
-const adsData = getAds();
-
-renderMarkers(adsData);
-
-export { resetMainPin };
+export { resetMainPin, renderMarkers };
