@@ -37,4 +37,8 @@ const enablePage = () => {
   enableFormValidation();
 };
 
+// window.addEventListener("load", disablePage);
+
+disablePage();
+
 export { disablePage, enablePage };
