@@ -1,42 +1,45 @@
-import { enablePage } from './page-state.js';
-
 import { createCard } from './render-card.js';
 
 const AD_ADDRESS = document.querySelector('#address');
+const MAP = L.map('map-canvas');
 
-const map = L.map('map-canvas')
-  .on('load', () => {
-    enablePage();
-  })
-  .setView(
+const initMap = (onload) => {
+  MAP.on('load', onload).setView(
     {
       lat: 35.67481276374844,
       lng: 139.7485999914352,
     },
     13,
   );
+};
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-}).addTo(map);
+let mainMarker;
 
-const mainPinIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
-});
+const setMainPin = () => {
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(MAP);
 
-const mainMarker = L.marker(
-  {
-    lat: 35.67481276374844,
-    lng: 139.7485999914352,
-  },
-  {
-    draggable: true,
-    icon: mainPinIcon,
-  },
-);
+  const mainPinIcon = L.icon({
+    iconUrl: '../img/main-pin.svg',
+    iconSize: [52, 52],
+    iconAnchor: [26, 52],
+  });
+
+  mainMarker = L.marker(
+    {
+      lat: 35.67481276374844,
+      lng: 139.7485999914352,
+    },
+    {
+      draggable: true,
+      icon: mainPinIcon,
+    },
+  );
+
+  mainMarker.addTo(MAP);
+};
 
 const setFormAddress = () => {
   const pinLat = mainMarker._latlng.lat;
@@ -45,23 +48,19 @@ const setFormAddress = () => {
   AD_ADDRESS.value = `${pinLat}, ${pinLng}`;
 };
 
-mainMarker.addTo(map);
-
-mainMarker.on('dragend', setFormAddress);
-
-const resetMainPin = () => {
+const resetMainMarker = () => {
   mainMarker.setLatLng({
     lat: 35.67481276374844,
     lng: 139.7485999914352,
   });
 
-  map.setView({
+  MAP.setView({
     lat: 35.67481276374844,
     lng: 139.7485999914352,
   });
 };
 
-const markerGroup = L.layerGroup().addTo(map);
+const markerGroup = L.layerGroup().addTo(MAP);
 
 const createMarker = (markerData) => {
   const icon = L.icon({
@@ -85,10 +84,21 @@ const createMarker = (markerData) => {
     .bindPopup(createCard(markerData), { keepInView: true });
 };
 
-const renderMarkers = (markersData) => {
-  markersData.forEach((item) => {
+const renderMarkers = (adsData) => {
+  adsData.forEach((item) => {
     createMarker(item);
   });
 };
 
-export { resetMainPin, renderMarkers };
+const showSimilarAds = (adsData) => () => {
+  setFormAddress();
+  renderMarkers(adsData);
+};
+
+const enableMap = (onload, adsData) => {
+  initMap(onload);
+  setMainPin();
+  mainMarker.on('dragend', showSimilarAds(adsData));
+};
+
+export { enableMap, resetMainMarker };
