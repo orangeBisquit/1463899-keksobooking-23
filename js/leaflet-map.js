@@ -1,5 +1,4 @@
 import { createCard } from './render-card.js';
-import { enablePage } from './page-state.js';
 
 const AD_ADDRESS = document.querySelector('#address');
 const MAP = L.map('map-canvas');
@@ -100,7 +99,6 @@ const enableMap = (onload, adsData) => () => {
   initMap(onload);
   setMainPin();
   mainMarker.on('dragend', showSimilarAds(adsData));
-  enablePage();
 };
 
 export { enableMap, resetMainMarker };
