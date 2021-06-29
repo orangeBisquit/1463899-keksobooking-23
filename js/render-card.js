@@ -4,8 +4,6 @@ const CARD_TEMPLATE = document
   .querySelector('#card')
   .content.querySelector('.popup');
 
-const MAP_CANVAS = document.querySelector('#map-canvas');
-
 const TYPE_KEYS = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -126,8 +124,4 @@ const createCard = (arrayItem) => {
   return card;
 };
 
-const renderCard = (card) => {
-  MAP_CANVAS.appendChild(card);
-};
-
-export { createCard, renderCard };
+export { createCard };

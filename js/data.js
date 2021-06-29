@@ -3,7 +3,7 @@ import {
   getRandomInteger,
   getRandomItems,
   getRandomItem,
-  addPadLeft
+  getRandomPadded
 } from './util.js';
 
 const AVATAR_DIR = 'img/avatars/user';
@@ -71,7 +71,7 @@ const getAd = () => {
 
   return {
     author: {
-      avatar: `${AVATAR_DIR}${addPadLeft(0, 10)}.png`,
+      avatar: `${AVATAR_DIR}${getRandomPadded(1, 10)}.png`,
     },
     offer: {
       title: 'Объявление',
