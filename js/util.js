@@ -38,7 +38,7 @@ const getRandomItem = (array) => {
   return randomItem;
 };
 
-const addPadLeft = (min, max) => String(getRandomInteger(min, max)).padStart(2, '0');
+const getRandomPadded = (min, max) => String(getRandomInteger(min, max)).padStart(2, "0");
 
 const getNounEnding= (amount) => {
   if (amount % 10 === 1 && amount % 100 !== 11) {
@@ -62,7 +62,7 @@ export {
   getRandomInteger,
   getRandomItems,
   getRandomItem,
-  addPadLeft,
+  getRandomPadded,
   getNounEnding,
-  checkExistence
+  checkExistence,
 };
