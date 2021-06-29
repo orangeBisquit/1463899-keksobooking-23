@@ -1,12 +1,12 @@
-import { createCard } from "./render-card.js";
+import { createCard } from './render-card.js';
 
-const AD_ADDRESS = document.querySelector("#address");
-const MAP = L.map("map-canvas");
+const AD_ADDRESS = document.querySelector('#address');
+const MAP = L.map('map-canvas');
 
 const MAIN_PIN_SIZE = [52, 52];
 const MAIN_PIN_ANCHOR = [26, 52];
 const MAIN_ICON_PROPS = {
-  iconUrl: "../img/main-pin.svg",
+  iconUrl: '../img/main-pin.svg',
   iconSize: MAIN_PIN_SIZE,
   iconAnchor: MAIN_PIN_ANCHOR,
 };
@@ -14,7 +14,7 @@ const MAIN_ICON_PROPS = {
 const PIN_SIZE = [40, 40];
 const PIN_AHCHOR = [40, 40];
 const ICON_PROPS = {
-  iconUrl: "../img/pin.svg",
+  iconUrl: '../img/pin.svg',
   iconSize: PIN_SIZE,
   iconAnchor: PIN_AHCHOR,
 };
@@ -27,9 +27,9 @@ const TOKYO_COORDS = {
 };
 
 const initMap = (onload) => {
-  MAP.on("load", onload).setView(TOKYO_COORDS, 13);
+  MAP.on('load', onload).setView(TOKYO_COORDS, 13);
 
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(MAP);
@@ -73,7 +73,7 @@ const createMarker = (markerData) => {
     },
     {
       icon,
-    }
+    },
   );
 
   marker
@@ -95,7 +95,7 @@ const showSimilarAds = (adsData) => () => {
 const enableMap = (onload, adsData) => () => {
   initMap(onload);
   setMainPin();
-  mainMarker.on("dragend", showSimilarAds(adsData));
+  mainMarker.on('dragend', showSimilarAds(adsData));
 };
 
 export { enableMap, resetMainMarker };
