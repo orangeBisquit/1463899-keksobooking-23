@@ -17,6 +17,12 @@ const getRandomFloat = (...args) => {
 
 const getRandomInteger = (min, max) => getRandomFloat(min, max, 0);
 
+
+const roundToDecimals = (number, dec) => {
+  const roundedNumber = Number(number.toFixed(dec));
+  return roundedNumber;
+};
+
 // Выбрать рандомные элементы массива
 const getRandomBoolean = () => Math.random() <= 0.5;
 
@@ -72,5 +78,6 @@ export {
   getRandomPadded,
   getNounEnding,
   checkExistence,
-  isEscPress
+  isEscPress,
+  roundToDecimals
 };

@@ -1,5 +1,6 @@
 import { mainMarker, resetMainMarker } from './leaflet-map.js';
 import { postDataSuccess } from './message.js';
+import { roundToDecimals } from './util.js';
 
 const AD_FORM = document.querySelector('.ad-form');
 const MAP_FILTERS = document.querySelector('.map__filters');
@@ -122,28 +123,32 @@ const disableFormValidation = () => {
   AD_TIMEOUT.removeEventListener('change', timeChangeHandler);
 };
 
+const resetForms = () => {
+  AD_FORM.reset();
+  MAP_FILTERS.reset();
+};
+
 const setFormAddress = () => {
-  const pinLat = mainMarker._latlng.lat;
-  const pinLng = mainMarker._latlng.lng;
+  const pinLat = roundToDecimals(mainMarker._latlng.lat, 5);
+  const pinLng = roundToDecimals(mainMarker._latlng.lng, 5);
 
   AD_ADDRESS.value = `${pinLat}, ${pinLng}`;
 };
 
-const resetForm = (form) => {
-  form.reset();
-};
-
 const handleSubmitSuccess = () => {
   postDataSuccess();
-  resetForm(AD_FORM);
-  resetForm(MAP_FILTERS);
+  resetForms();
   resetMainMarker();
+  setFormAddress();
 };
 
-RESET_BUTTON.addEventListener('click', () => {
-  resetForm(AD_FORM);
-  resetForm(MAP_FILTERS);
-});
+const resetFormHandler = () => {
+  resetForms();
+  resetMainMarker();
+  setFormAddress();
+};
+
+RESET_BUTTON.addEventListener('click', resetFormHandler);
 
 
 export { enableFormValidation, disableFormValidation, setFormAddress, handleSubmitSuccess };

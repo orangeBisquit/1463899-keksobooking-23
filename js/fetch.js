@@ -1,6 +1,3 @@
-import { postDataError } from './message.js';
-import { handleSubmitSuccess } from './form.js';
-
 const AD_FORM = document.querySelector('.ad-form');
 
 const ADS_DATA_ADDRESS = 'https://23.javascript.pages.academy/keksobooking/data';
@@ -24,7 +21,7 @@ const getAdsData = (filterData, employData, onError) =>
       onError();
     });
 
-const listenFormSubmit = () => {
+const listenFormSubmit = (onSuccess, onError) => {
   AD_FORM.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
@@ -33,9 +30,9 @@ const listenFormSubmit = () => {
     fetch(FORM_ADDRESS, { method: 'POST', body: formData })
       .then((response) => {
         if (response.ok) {
-          handleSubmitSuccess();
+          onSuccess();
         } else {
-          postDataError();
+          onError();
         }
       },
       );

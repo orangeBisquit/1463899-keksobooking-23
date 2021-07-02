@@ -1,5 +1,6 @@
 import { createCard } from './render-card.js';
 import { setFormAddress } from './form.js';
+import { roundToDecimals } from './util.js';
 
 const MAP = L.map('map-canvas');
 
@@ -19,8 +20,8 @@ const ICON_PROPS = {
   iconAnchor: PIN_AHCHOR,
 };
 
-const TOKYO_LAT = 35.67481276374844;
-const TOKYO_LNG = 139.7485999914352;
+const TOKYO_LAT = 35.67481;
+const TOKYO_LNG = 139.74859;
 const TOKYO_COORDS = {
   lat: TOKYO_LAT,
   lng: TOKYO_LNG,
@@ -61,8 +62,8 @@ const createMarker = (markerData) => {
 
   const marker = L.marker(
     {
-      lat: markerData.location.lat,
-      lng: markerData.location.lng,
+      lat: roundToDecimals(markerData.location.lat, 5),
+      lng: roundToDecimals(markerData.location.lng, 5),
     },
     {
       icon,
@@ -84,7 +85,7 @@ const updateMarkers = (getAdsData, filterData, employData, onError) => () => {
 const enableMap = (onload) => {
   initMap(onload);
   setMainPin();
-  // setFormAddress();
+  setFormAddress();
 };
 
 export { enableMap, resetMainMarker, createMarker, mainMarker, updateMarkers };
