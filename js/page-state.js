@@ -8,7 +8,7 @@ const disableForm = (form, selectors, disableClass) => {
 
   form.classList.add(disableClass);
 
-  controls.forEach((control)=> {
+  controls.forEach((control) => {
     control.setAttribute('disabled', true);
   });
 };

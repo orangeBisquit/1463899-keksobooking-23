@@ -58,6 +58,12 @@ const getNounEnding = (amount) => {
 
 const checkExistence = (...args) => !args.includes(undefined);
 
+const isEscPress = (evt) => {
+  if (evt.keyCode === 27 || evt.key === 'Escape' || evt.key === 'Escape') {
+    return true;
+  }
+};
+
 export {
   getRandomFloat,
   getRandomInteger,
@@ -65,5 +71,6 @@ export {
   getRandomItem,
   getRandomPadded,
   getNounEnding,
-  checkExistence
+  checkExistence,
+  isEscPress
 };

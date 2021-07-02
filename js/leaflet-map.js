@@ -1,6 +1,6 @@
 import { createCard } from './render-card.js';
+import { setFormAddress } from './form.js';
 
-const AD_ADDRESS = document.querySelector('#address');
 const MAP = L.map('map-canvas');
 
 const MAIN_PIN_SIZE = [52, 52];
@@ -48,13 +48,6 @@ const setMainPin = () => {
   mainMarker.addTo(MAP);
 };
 
-const setFormAddress = () => {
-  const pinLat = mainMarker._latlng.lat;
-  const pinLng = mainMarker._latlng.lng;
-
-  AD_ADDRESS.value = `${pinLat}, ${pinLng}`;
-};
-
 const resetMainMarker = () => {
   mainMarker.setLatLng(TOKYO_COORDS);
 
@@ -81,21 +74,17 @@ const createMarker = (markerData) => {
     .bindPopup(createCard(markerData), { keepInView: true });
 };
 
-const renderMarkers = (adsData) => {
-  adsData.forEach((item) => {
-    createMarker(item);
-  });
-};
+const updateMarkers = (getAdsData, filterData, employData, onError) => () => {
 
-const showSimilarAds = (adsData) => () => {
+  markerGroup.clearLayers();
   setFormAddress();
-  renderMarkers(adsData);
+  getAdsData(filterData, employData, onError);
 };
 
-const enableMap = (onload, adsData) => () => {
+const enableMap = (onload) => {
   initMap(onload);
   setMainPin();
-  mainMarker.on('dragend', showSimilarAds(adsData));
+  // setFormAddress();
 };
 
-export { enableMap, resetMainMarker };
+export { enableMap, resetMainMarker, createMarker, mainMarker, updateMarkers };

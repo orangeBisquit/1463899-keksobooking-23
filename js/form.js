@@ -1,4 +1,8 @@
+import { mainMarker, resetMainMarker } from './leaflet-map.js';
+import { postDataSuccess } from './message.js';
+
 const AD_FORM = document.querySelector('.ad-form');
+const MAP_FILTERS = document.querySelector('.map__filters');
 const AD_HEADING = AD_FORM.querySelector('#title');
 const AD_PRICE = AD_FORM.querySelector('#price');
 const AD_ROOM = AD_FORM.querySelector('#room_number');
@@ -7,6 +11,8 @@ const AD_TYPE = AD_FORM.querySelector('#type');
 const AD_CAPACITY_OPTIONS = AD_CAPACITY.querySelectorAll('option');
 const AD_TIMEIN = AD_FORM.querySelector('#timein');
 const AD_TIMEOUT = AD_FORM.querySelector('#timeout');
+const AD_ADDRESS = AD_FORM.querySelector('#address');
+const RESET_BUTTON = AD_FORM.querySelector('.ad-form__reset');
 
 const ROOM_OPTIONS = {
   1: [1],
@@ -116,5 +122,28 @@ const disableFormValidation = () => {
   AD_TIMEOUT.removeEventListener('change', timeChangeHandler);
 };
 
+const setFormAddress = () => {
+  const pinLat = mainMarker._latlng.lat;
+  const pinLng = mainMarker._latlng.lng;
 
-export { enableFormValidation, disableFormValidation };
+  AD_ADDRESS.value = `${pinLat}, ${pinLng}`;
+};
+
+const resetForm = (form) => {
+  form.reset();
+};
+
+const handleSubmitSuccess = () => {
+  postDataSuccess();
+  resetForm(AD_FORM);
+  resetForm(MAP_FILTERS);
+  resetMainMarker();
+};
+
+RESET_BUTTON.addEventListener('click', () => {
+  resetForm(AD_FORM);
+  resetForm(MAP_FILTERS);
+});
+
+
+export { enableFormValidation, disableFormValidation, setFormAddress, handleSubmitSuccess };
