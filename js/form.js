@@ -142,7 +142,8 @@ const handleSubmitSuccess = () => {
   setFormAddress();
 };
 
-const resetFormHandler = () => {
+const resetFormHandler = (evt) => {
+  evt.preventDefault();
   resetForms();
   resetMainMarker();
   setFormAddress();
