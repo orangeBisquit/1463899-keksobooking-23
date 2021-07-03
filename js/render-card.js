@@ -1,5 +1,5 @@
 import { getNounEnding, checkExistence } from './util.js';
-import { createMarker, mainMarker, updateMarkers } from './leaflet-map.js';
+import { createMarker } from './leaflet-map.js';
 
 const CARD_TEMPLATE = document
   .querySelector('#card')
@@ -142,8 +142,4 @@ const createPins = (adsData) => {
   });
 };
 
-const handleSimilarAds = (getData, onSuccess, onError, processData) => {
-  mainMarker.on('dragend', updateMarkers(getData, onSuccess, onError, processData));
-};
-
-export { createCard, createPins, handleSimilarAds };
+export { createCard, createPins };

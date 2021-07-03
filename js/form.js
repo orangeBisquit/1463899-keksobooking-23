@@ -151,5 +151,10 @@ const resetFormHandler = (evt) => {
 
 RESET_BUTTON.addEventListener('click', resetFormHandler);
 
-
-export { enableFormValidation, disableFormValidation, setFormAddress, handleSubmitSuccess };
+export {
+  enableFormValidation,
+  disableFormValidation,
+  setFormAddress,
+  handleSubmitSuccess,
+  AD_FORM
+};

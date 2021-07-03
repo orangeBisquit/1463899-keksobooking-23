@@ -75,11 +75,8 @@ const createMarker = (markerData) => {
     .bindPopup(createCard(markerData), { keepInView: true });
 };
 
-const updateMarkers = (getAdsData, filterData, employData, onError) => () => {
-
+const clearPins = () => {
   markerGroup.clearLayers();
-  setFormAddress();
-  getAdsData(filterData, employData, onError);
 };
 
 const enableMap = (onload) => {
@@ -88,4 +85,4 @@ const enableMap = (onload) => {
   setFormAddress();
 };
 
-export { enableMap, resetMainMarker, createMarker, mainMarker, updateMarkers };
+export { enableMap, resetMainMarker, createMarker, mainMarker, clearPins };

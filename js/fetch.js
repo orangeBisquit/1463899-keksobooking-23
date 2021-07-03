@@ -1,10 +1,8 @@
-const AD_FORM = document.querySelector('.ad-form');
-
 const ADS_DATA_ADDRESS = 'https://23.javascript.pages.academy/keksobooking/data';
 const FORM_ADDRESS = 'https://23.javascript.pages.academy/keksobooking';
 
 // -------------------------------------
-const getAdsData = (filterData, employData, onError) =>
+const loadData = (onSuccess, onError) => {
   fetch(ADS_DATA_ADDRESS)
     .then((response) => {
       if (response.ok) {
@@ -13,16 +11,15 @@ const getAdsData = (filterData, employData, onError) =>
         onError();
       }
     })
-    .then((adsData) => filterData(adsData))
-    .then((filteredData) => {
-      employData(filteredData);
+    .then((adsData) => {
+      onSuccess(adsData);
     })
     .catch(() => {
       onError();
     });
-
-const listenFormSubmit = (onSuccess, onError) => {
-  AD_FORM.addEventListener('submit', (evt) => {
+};
+const listenFormSubmit = (form, onSuccess, onError) => {
+  form.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     const formData = new FormData(evt.target);
@@ -34,9 +31,11 @@ const listenFormSubmit = (onSuccess, onError) => {
         } else {
           onError();
         }
-      },
-      );
+      })
+      .catch(() => {
+        onError();
+      });
   });
 };
 
-export { getAdsData, listenFormSubmit };
+export { loadData, listenFormSubmit };

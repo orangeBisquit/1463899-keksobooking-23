@@ -37,6 +37,7 @@ const onButtonPress = () => {
 
   errorButton.removeEventListener('click', onButtonPress);
 };
+// --------------------------------------
 
 const postDataSuccess = () => {
   const successMessage = successTemplate.cloneNode(true);
