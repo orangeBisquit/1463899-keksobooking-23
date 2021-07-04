@@ -1,4 +1,5 @@
 import { getNounEnding, checkExistence } from './util.js';
+import { createMarker } from './leaflet-map.js';
 
 const CARD_TEMPLATE = document
   .querySelector('#card')
@@ -28,17 +29,23 @@ const getCapacityNames = (roomsNumber, guestsNumber) => {
 };
 
 const setFeatures = (cardItem, featuresList) => {
+  const featuresBlock = cardItem.querySelector('.popup__features');
   const templateFeatures = cardItem.querySelectorAll('.popup__feature');
 
-  const modifiers = featuresList.map((feature) => `popup__feature--${feature}`);
+  if (featuresList) {
+    const modifiers = featuresList.map((feature) => `popup__feature--${feature}`);
 
-  templateFeatures.forEach((item) => {
-    const modifier = item.classList[1];
+    templateFeatures.forEach((item) => {
+      const modifier = item.classList[1];
 
-    if (!modifiers.includes(modifier)) {
-      item.remove();
-    }
-  });
+      if (!modifiers.includes(modifier)) {
+        item.remove();
+      }
+    });
+  } else {
+    featuresBlock.remove();
+  }
+
 };
 
 const setPhotos = (cardItem, photosDirs) => {
@@ -48,11 +55,16 @@ const setPhotos = (cardItem, photosDirs) => {
 
   photosBlock.innerHTML = '';
 
-  photosDirs.forEach((dir) => {
-    const newPhoto = templatePhoto.cloneNode();
-    newPhoto.src = dir;
-    photosBlock.appendChild(newPhoto);
-  });
+  if (photosDirs) {
+    photosDirs.forEach((dir) => {
+      const newPhoto = templatePhoto.cloneNode();
+      newPhoto.src = dir;
+      photosBlock.appendChild(newPhoto);
+    });
+  } else {
+    photosBlock.remove();
+  }
+
 };
 
 const setOrRemove = (element, value, text = value) => {
@@ -124,4 +136,10 @@ const createCard = (arrayItem) => {
   return card;
 };
 
-export { createCard };
+const createPins = (adsData) => {
+  adsData.forEach((item) => {
+    createMarker(item);
+  });
+};
+
+export { createCard, createPins };

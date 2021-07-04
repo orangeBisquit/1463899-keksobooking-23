@@ -17,6 +17,12 @@ const getRandomFloat = (...args) => {
 
 const getRandomInteger = (min, max) => getRandomFloat(min, max, 0);
 
+
+const roundToDecimals = (number, dec) => {
+  const roundedNumber = Number(number.toFixed(dec));
+  return roundedNumber;
+};
+
 // Выбрать рандомные элементы массива
 const getRandomBoolean = () => Math.random() <= 0.5;
 
@@ -58,6 +64,12 @@ const getNounEnding = (amount) => {
 
 const checkExistence = (...args) => !args.includes(undefined);
 
+const isEscPress = (evt) => {
+  if (evt.keyCode === 27 || evt.key === 'Escape' || evt.key === 'Escape') {
+    return true;
+  }
+};
+
 export {
   getRandomFloat,
   getRandomInteger,
@@ -65,5 +77,7 @@ export {
   getRandomItem,
   getRandomPadded,
   getNounEnding,
-  checkExistence
+  checkExistence,
+  isEscPress,
+  roundToDecimals
 };
