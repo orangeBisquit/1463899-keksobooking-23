@@ -17,31 +17,9 @@ const getRandomFloat = (...args) => {
 
 const getRandomInteger = (min, max) => getRandomFloat(min, max, 0);
 
-
 const roundToDecimals = (number, dec) => {
   const roundedNumber = Number(number.toFixed(dec));
   return roundedNumber;
-};
-
-// Выбрать рандомные элементы массива
-const getRandomBoolean = () => Math.random() <= 0.5;
-
-const getRandomItems = (array, canBeEmpty = true) => {
-  const result = array.filter(getRandomBoolean);
-
-  if (!canBeEmpty && result.length < 1) {
-    result.push(array[Math.floor(Math.random * array.length)]);
-  }
-
-  return result;
-};
-
-const getRandomItem = (array) => {
-  const length = getRandomItems(array).length;
-  const randomIdx = Math.floor(Math.random() * length);
-  const randomItem = array[randomIdx];
-
-  return randomItem;
 };
 
 const getRandomPadded = (min, max) =>
@@ -73,8 +51,6 @@ const isEscPress = (evt) => {
 export {
   getRandomFloat,
   getRandomInteger,
-  getRandomItems,
-  getRandomItem,
   getRandomPadded,
   getNounEnding,
   checkExistence,

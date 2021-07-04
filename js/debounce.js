@@ -1,15 +1,12 @@
 const DEBOUNCE_INTERVAL = 500;
 
-function debounce(callback) {
-
+function debounce(callback, timeoutDelay = DEBOUNCE_INTERVAL) {
   let timeoutId;
 
   return (...rest) => {
-
     clearTimeout(timeoutId);
 
-    timeoutId = setTimeout(() => callback.apply(this, rest), DEBOUNCE_INTERVAL);
-
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 }
 
