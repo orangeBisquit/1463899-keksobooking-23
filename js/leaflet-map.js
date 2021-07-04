@@ -27,12 +27,14 @@ const TOKYO_COORDS = {
   lng: TOKYO_LNG,
 };
 
+const MAP_SOURCE = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const MAP_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
 const initMap = (onload) => {
   MAP.on('load', onload).setView(TOKYO_COORDS, 13);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  L.tileLayer(MAP_SOURCE, {
+    attribution: MAP_ATTRIBUTION,
   }).addTo(MAP);
 };
 
@@ -80,7 +82,7 @@ const clearPins = () => {
 };
 
 const handleMarkerMove = () => {
-  mainMarker.on("dragend", updateMarkers);
+  mainMarker.on('dragend', updateMarkers);
 };
 
 const enableMap = (onload) => {

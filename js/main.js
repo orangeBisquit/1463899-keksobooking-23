@@ -6,6 +6,7 @@ import { loadData, listenFormSubmit } from './fetch.js';
 import { postDataError, getDataError } from './message.js';
 import { applyFilters } from './filter.js';
 import { storeData, prepareData, getData } from './store-data.js';
+import './debounce.js';
 
 const handleLoadSuccess = (loadedData) => {
   storeData(loadedData);

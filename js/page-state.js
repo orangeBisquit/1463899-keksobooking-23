@@ -1,4 +1,4 @@
-import { enableFormValidation, disableFormValidation } from './form.js';
+import { enableFormValidation, disableFormValidation, enableReset, disableReset } from './form.js';
 
 const AD_FORM = document.querySelector('.ad-form');
 const MAP_FILTERS = document.querySelector('.map__filters');
@@ -28,6 +28,7 @@ const disablePage = () => {
   disableForm(MAP_FILTERS, 'select, fieldset', 'map__filters--disabled');
 
   disableFormValidation();
+  disableReset();
 };
 
 const enablePage = () => {
@@ -35,6 +36,7 @@ const enablePage = () => {
   enableForm(MAP_FILTERS, 'select, fieldset', 'map__filters--disabled');
 
   enableFormValidation();
+  enableReset();
 };
 
 export { disablePage, enablePage };

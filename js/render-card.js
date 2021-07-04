@@ -3,12 +3,13 @@ import { createMarker, clearPins } from './leaflet-map.js';
 import { setFormAddress } from './form.js';
 import { prepareData, getData } from './store-data.js';
 import { applyFilters } from './filter.js';
+import { debounce } from './debounce.js';
 
 const CARD_TEMPLATE = document
   .querySelector('#card')
   .content.querySelector('.popup');
 
-const TYPE_KEYS = {
+const TypeKeys = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
   house: 'Дом',
@@ -113,7 +114,7 @@ const createCard = (arrayItem) => {
   setOrRemove(adTitle, title);
   setOrRemove(adAddress, address);
   setOrRemove(adPrice, price, `${price} ₽/ночь`);
-  setOrRemove(adType, type, TYPE_KEYS[type]);
+  setOrRemove(adType, type, TypeKeys[type]);
   setOrRemove(
     adCapacity,
     rooms * guests,
@@ -145,11 +146,13 @@ const createPins = (adsData) => {
   });
 };
 
-const updateMarkers = () => {
+const noDelayUpdate = () => {
   clearPins();
   setFormAddress();
   prepareData(applyFilters);
   createPins(getData());
 };
+
+const updateMarkers = debounce(noDelayUpdate);
 
 export { createCard, createPins, updateMarkers };

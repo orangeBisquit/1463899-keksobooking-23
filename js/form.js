@@ -16,14 +16,14 @@ const AD_TIMEOUT = AD_FORM.querySelector('#timeout');
 const AD_ADDRESS = AD_FORM.querySelector('#address');
 const RESET_BUTTON = AD_FORM.querySelector('.ad-form__reset');
 
-const ROOM_OPTIONS = {
+const RoomOptions = {
   1: [1],
   2: [1, 2],
   3: [1, 2, 3],
   100: [0],
 };
 
-const ROOM_PRICE = {
+const RoomPrice = {
   bungalow: 0,
   flat: 1000,
   hotel: 3000,
@@ -80,7 +80,7 @@ const disableCapacity = (onload) => {
 const setCapacity = (peopleAmount) => {
   disableCapacity();
 
-  ROOM_OPTIONS[peopleAmount].forEach((maximumPeople) => {
+  RoomOptions[peopleAmount].forEach((maximumPeople) => {
     AD_CAPACITY_OPTIONS.forEach((option) => {
       if (Number(option.value) === maximumPeople) {
         option.disabled = false;
@@ -95,8 +95,8 @@ const roomChangeHandler = (evt) => {
 };
 
 const typeChangeTypeHandler = (evt) => {
-  AD_PRICE.setAttribute('min', ROOM_PRICE[evt.target.value]);
-  AD_PRICE.setAttribute('placeholder', ROOM_PRICE[evt.target.value]);
+  AD_PRICE.setAttribute('min', RoomPrice[evt.target.value]);
+  AD_PRICE.setAttribute('placeholder', RoomPrice[evt.target.value]);
 };
 
 const timeChangeHandler = (evt) => {
@@ -152,12 +152,20 @@ const resetFormHandler = (evt) => {
   updateMarkers();
 };
 
-RESET_BUTTON.addEventListener('click', resetFormHandler);
+const enableReset = () => {
+  RESET_BUTTON.addEventListener('click', resetFormHandler);
+};
+
+const disableReset = () => {
+  RESET_BUTTON.removeEventListener('click', resetFormHandler);
+};
 
 export {
   enableFormValidation,
   disableFormValidation,
   setFormAddress,
   handleSubmitSuccess,
-  AD_FORM
+  AD_FORM,
+  enableReset,
+  disableReset
 };
