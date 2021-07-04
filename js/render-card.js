@@ -1,5 +1,8 @@
 import { getNounEnding, checkExistence } from './util.js';
-import { createMarker } from './leaflet-map.js';
+import { createMarker, clearPins } from './leaflet-map.js';
+import { setFormAddress } from './form.js';
+import { prepareData, getData } from './store-data.js';
+import { applyFilters } from './filter.js';
 
 const CARD_TEMPLATE = document
   .querySelector('#card')
@@ -142,4 +145,11 @@ const createPins = (adsData) => {
   });
 };
 
-export { createCard, createPins };
+const updateMarkers = () => {
+  clearPins();
+  setFormAddress();
+  prepareData(applyFilters);
+  createPins(getData());
+};
+
+export { createCard, createPins, updateMarkers };

@@ -1,6 +1,7 @@
 import { mainMarker, resetMainMarker } from './leaflet-map.js';
 import { postDataSuccess } from './message.js';
 import { roundToDecimals } from './util.js';
+import { updateMarkers } from './render-card.js';
 
 const AD_FORM = document.querySelector('.ad-form');
 const MAP_FILTERS = document.querySelector('.map__filters');
@@ -140,6 +141,7 @@ const handleSubmitSuccess = () => {
   resetForms();
   resetMainMarker();
   setFormAddress();
+  updateMarkers();
 };
 
 const resetFormHandler = (evt) => {
@@ -147,6 +149,7 @@ const resetFormHandler = (evt) => {
   resetForms();
   resetMainMarker();
   setFormAddress();
+  updateMarkers();
 };
 
 RESET_BUTTON.addEventListener('click', resetFormHandler);

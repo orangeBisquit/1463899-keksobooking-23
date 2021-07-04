@@ -1,4 +1,4 @@
-import { createCard } from './render-card.js';
+import { createCard, updateMarkers } from './render-card.js';
 import { setFormAddress } from './form.js';
 import { roundToDecimals } from './util.js';
 
@@ -79,10 +79,15 @@ const clearPins = () => {
   markerGroup.clearLayers();
 };
 
+const handleMarkerMove = () => {
+  mainMarker.on("dragend", updateMarkers);
+};
+
 const enableMap = (onload) => {
   initMap(onload);
   setMainPin();
   setFormAddress();
+  handleMarkerMove();
 };
 
 export { enableMap, resetMainMarker, createMarker, mainMarker, clearPins };
