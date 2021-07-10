@@ -13,11 +13,11 @@ const MAIN_ICON_PROPS = {
 };
 
 const PIN_SIZE = [40, 40];
-const PIN_AHCHOR = [40, 40];
+const PIN_ANCHOR = [40, 40];
 const ICON_PROPS = {
   iconUrl: '../img/pin.svg',
   iconSize: PIN_SIZE,
-  iconAnchor: PIN_AHCHOR,
+  iconAnchor: PIN_ANCHOR,
 };
 
 const TOKYO_LAT = 35.67481;

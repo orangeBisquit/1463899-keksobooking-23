@@ -6,6 +6,8 @@ let errorButton = document.querySelector('.error__button');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
+const ERROR_SHOW_TIME = 3000;
+
 // -------------------------------------
 const removeMessage = () => {
   const successMessage = document.querySelector('.success');
@@ -60,11 +62,11 @@ const postDataError = () => {
 
 const getDataError = () => {
   const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = 100;
+  alertContainer.style.zIndex = '100';
   alertContainer.style.position = 'absolute';
-  alertContainer.style.left = 0;
-  alertContainer.style.top = 0;
-  alertContainer.style.right = 0;
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '0';
+  alertContainer.style.right = '0';
   alertContainer.style.padding = '10px 3px';
   alertContainer.style.fontSize = '30px';
   alertContainer.style.textAlign = 'center';
@@ -76,7 +78,7 @@ const getDataError = () => {
 
   setTimeout(() => {
     alertContainer.remove();
-  }, 3000);
+  }, ERROR_SHOW_TIME);
 };
 
 export { getDataError, postDataSuccess, postDataError };

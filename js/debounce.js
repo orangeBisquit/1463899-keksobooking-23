@@ -1,6 +1,6 @@
 const DEBOUNCE_INTERVAL = 500;
 
-function debounce(callback, timeoutDelay = DEBOUNCE_INTERVAL) {
+const debounce = (callback, timeoutDelay = DEBOUNCE_INTERVAL) => {
   let timeoutId;
 
   return (...rest) => {
