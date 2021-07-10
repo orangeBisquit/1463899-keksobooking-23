@@ -8,6 +8,6 @@ const debounce = (callback, timeoutDelay = DEBOUNCE_INTERVAL) => {
 
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
-}
+};
 
 export { debounce };
